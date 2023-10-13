@@ -2,16 +2,29 @@ const fs = require("fs/promises");
 const { HttpError } = require("../helpers");
 
 const checkFileSize = async (req, res, next) => {
-  const { file } = req;
+  const { files } = req;
   const maxFileSize = 5 * 1024 * 1024;
-  if (!file) {
-    next(HttpError(400, "No added image"));
-  } else if (file.size > maxFileSize) {
-    fs.unlink(file.path);
-    next(HttpError(400, "File size exceeds 5 MB"));
-  } else {
-    next();
+  let fileExceedsLimit = false;
+
+  for (const key in files) {
+    const file = files[key][0];
+    if (file.size > maxFileSize) {
+      // Якщо розмір файлу перевищує ліміт, встановлюємо флаг і виходимо з циклу
+      fileExceedsLimit = true;
+      break;
+    }
   }
+
+  if (fileExceedsLimit) {
+    // Якщо хоча б один файл перевищує ліміт, видаляємо всі файли і відправляємо помилку
+    for (const key in files) {
+      const file = files[key][0];
+      await fs.unlink(file.path);
+    }
+    return next(HttpError(400, "Розмір принаймні одного файлу перевищує 5 МБ"));
+  }
+
+  next();
 };
 
 module.exports = checkFileSize;

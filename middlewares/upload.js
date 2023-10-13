@@ -10,6 +10,11 @@ const multerConfig = multer.diskStorage({
   },
 });
 
-const ulpoad = multer({ storage: multerConfig });
+// const ulpoad = multer({ storage: multerConfig });
 
-module.exports = ulpoad;
+const upload = multer({ storage: multerConfig }).fields([
+  { name: "before", maxCount: 1 },
+  { name: "after", maxCount: 1 },
+]);
+
+module.exports = upload;

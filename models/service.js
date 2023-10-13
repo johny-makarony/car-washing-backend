@@ -8,10 +8,7 @@ const serviceSchema = new Schema(
       enum: ["Авто", "Килим"],
     },
     name: String,
-    pricePerMeter: {
-      type: String,
-      enum: ["Так", "Ні"],
-    },
+    pricePerMeter: Boolean,
     price: Number,
     employeePercent: Number,
   },
@@ -27,9 +24,8 @@ const addServiceSchema = joi.object({
   name: joi.string().messages({
     "string.base": "The name field must be a string.",
   }),
-  pricePerMeter: joi.string().valid("Так", "Ні").messages({
-    "string.base": "The pricePerMeter field must be a string.",
-    "string.valid": "The category field must have a value of 'Так' or 'Ні'.",
+  pricePerMeter: joi.boolean().messages({
+    "boolean.base": "The pricePerMeter field must be a boolean.",
   }),
   price: joi.number().messages({
     "string.base": "The price field must be a number.",

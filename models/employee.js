@@ -10,7 +10,7 @@ const employeeSchema = new Schema(
       required: [true, "Set name for employee"],
     },
     phone: String,
-    criminal: String,
+    criminal: Boolean,
     worksFromDate: String,
   },
   { versionKey: false, timestamps: true }
@@ -26,9 +26,8 @@ const addEmployeeSchema = joi.object({
     "string.base": "The phone field must be a string.",
     "string.pattern.base": "Invalid phone number format.",
   }),
-  criminal: joi.string().pattern(stringRegexp).messages({
-    "string.base": "The criminal field must be a string.",
-    "string.pattern.base": "The criminal contains invalid characters.",
+  criminal: joi.boolean().messages({
+    "boolean.base": "The criminal field must be a boolean.",
   }),
   worksFromDate: joi.string().messages({
     "string.base": "The birthday field must be a string.",

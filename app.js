@@ -11,6 +11,7 @@ const employeesRouter = require("./routes/api/employees");
 const servicesRouter = require("./routes/api/services");
 const ordersRouter = require("./routes/api/orders");
 const reportRouter = require("./routes/api/reporting");
+const galleryRouter = require("./routes/api/photos");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/employees", employeesRouter);
 app.use("/api/services", servicesRouter);
 app.use("/api/orders", ordersRouter);
 app.use("/api/reporting", reportRouter);
+app.use("/api/gallery", galleryRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
