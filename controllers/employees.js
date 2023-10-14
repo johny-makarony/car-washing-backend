@@ -20,7 +20,16 @@ const addEmployee = async (req, res) => {
   res.status(201).json(result);
 };
 
+const getAllEmployeesForUsers = async (req, res) => {
+  const result = await Employee.find(
+    {},
+    "-createdAt -updatedAt -phone -criminal -worksFromDate"
+  );
+  res.json(result);
+};
+
 module.exports = {
   addEmployee: ctrlWrapper(addEmployee),
   getAllEmployees: ctrlWrapper(getAllEmployees),
+  getAllEmployeesForUsers: ctrlWrapper(getAllEmployeesForUsers),
 };

@@ -16,13 +16,17 @@ const orderSchema = new Schema(
     orderDate: String,
     orderExecutionDate: String,
     washer: String,
-    administrator: String,
+    administrator: {
+      type: String,
+      default: "Антон",
+    },
     serviceObject: String,
     urgently: Boolean,
     services: Array,
     payment: {
       type: String,
       enum: ["Готівка", "Безготівка"],
+      default: "Готівка",
     },
     totalCostOrder: Number,
     discountedCostOrder: Number,

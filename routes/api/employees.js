@@ -14,4 +14,6 @@ router.post(
 
 router.get("/", authenticate, employee.getAllEmployees);
 
+router.get("/for-user", employee.getAllEmployeesForUsers);
+
 module.exports = router;
