@@ -13,16 +13,16 @@ const photoGroupSchema = new Schema(
 
 const addPhotosGroup = joi.object({
   beforePhoto: joi.object().messages({
-    "object.base": "The beforePhoto field must be a object.",
+    "object.base": "Поле фото до повинно бути об'єктом",
   }),
   beforeAlt: joi.string().messages({
-    "string.base": "The beforeAlt field must be a string.",
+    "string.base": "Поле опис фото до повинно бути текстовим",
   }),
   afterPhoto: joi.object().messages({
-    "object.base": "The afterPhoto field must be a object.",
+    "object.base": "Поле фото після повинно бути об'єктом",
   }),
   afterAlt: joi.string().messages({
-    "string.base": "The afterAlt field must be a string.",
+    "string.base": "Поле опис фото після повинно бути текстовим",
   }),
 });
 

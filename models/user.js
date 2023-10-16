@@ -7,15 +7,15 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Set name for user"],
+      required: true,
     },
     password: {
       type: String,
-      required: [true, "Set password for user"],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: true,
       unique: true,
     },
     accessToken: String,
@@ -27,58 +27,59 @@ const userSchema = new Schema(
 
 const registerSchema = joi.object({
   name: joi.string().pattern(stringRegexp).required().messages({
-    "string.base": "The name field must be a string.",
-    "string.pattern.base": "The name contains invalid characters.",
-    "any.required": "The name field is required.",
+    "string.base": "Поле ім'я повинно бути текстовим",
+    "string.pattern.base": "Поле ім'я не повинно містити числа чи знаки",
+    "any.required": "Поле ім'я обов'язкове",
   }),
   email: joi.string().email().required().messages({
-    "string.base": "The email field must be a string.",
-    "string.email": "Invalid email format.",
-    "any.required": "The email field is required.",
+    "string.base": "Поле ел.пошти повинно бути текстовим",
+    "string.email": "Поле ел.пошти повинно бути в форматі user@example.com",
+    "any.required": "Поле ел.пошти обов'язкове",
   }),
   password: joi.string().min(8).max(30).required().messages({
-    "string.base": "The password field must be a string.",
-    "string.min": "The password must have at least 8 characters.",
-    "string.max": "The password must have at most 30 characters.",
-    "any.required": "The password field is required.",
+    "string.base": "Поле пароль повинно бути текстовим",
+    "string.min": "Поле пароль повинно мати мінімум 8 символів",
+    "string.max": "Поле пароль повинно мати не більше 30 символів",
+    "any.required": "Поле пароль обов'язкове",
   }),
 });
 
 const loginSchema = joi.object({
   email: joi.string().email().required().messages({
-    "string.base": "The email field must be a string.",
-    "string.email": "Invalid email format.",
-    "any.required": "The email field is required.",
+    "string.base": "Поле ел.пошти повинно бути текстовим",
+    "string.email": "Поле ел.пошти повинно бути в форматі user@example.com",
+    "any.required": "Поле ел.пошти обов'язкове",
   }),
   password: joi.string().min(8).max(30).required().messages({
-    "string.base": "The password field must be a string.",
-    "string.min": "The password must have at least 8 characters.",
-    "string.max": "The password must have at most 30 characters.",
-    "any.required": "The password field is required.",
+    "string.base": "Поле пароль повинно бути текстовим",
+    "string.min": "Поле пароль повинно мати мінімум 8 символів",
+    "string.max": "Поле пароль повинно мати не більше 30 символів",
+    "any.required": "Поле пароль обов'язкове",
   }),
 });
 
 const updateSchema = joi
   .object({
     name: joi.string().pattern(stringRegexp).messages({
-      "string.base": "The name field must be a string.",
-      "string.pattern.base": "The name contains invalid characters.",
+      "string.base": "Поле ім'я повинно бути текстовим",
+      "string.pattern.base": "Поле ім'я не повинно містити числа чи знаки",
     }),
     email: joi.string().email().messages({
-      "string.base": "The email field must be a string.",
-      "string.email": "Invalid email format.",
+      "string.base": "Поле ел.пошти повинно бути текстовим",
+      "string.email": "Поле ел.пошти повинно бути в форматі user@example.com",
     }),
     phone: joi.string().pattern(phoneRegexp).messages({
-      "string.base": "The phone field must be a string.",
-      "string.pattern.base": "Invalid phone number format.",
+      "string.base": "Поле телефон повинно бути текстовим",
+      "string.pattern.base":
+        "Поле телефон повинно бути в форматі +380123456789",
     }),
   })
   .or("name", "email", "phone");
 
 const refreshSchema = joi.object({
   refreshToken: joi.string().required().messages({
-    "string.base": "The refreshToken field must be a string.",
-    "any.required": "The refreshToken field is required.",
+    "string.base": "Поле refreshToken повинно бути текстовим",
+    "any.required": "Поле refreshToken обов'язкове",
   }),
 });
 

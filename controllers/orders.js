@@ -72,7 +72,7 @@ const getOrderByNumber = async (req, res) => {
   );
 
   if (!order) {
-    throw HttpError(404, "Not found");
+    throw HttpError(404, "Замовлення не знайдено");
   }
 
   res.status(200).json(order);
@@ -85,7 +85,7 @@ const updateOrderByNumber = async (req, res) => {
   const order = await Order.findOne({ orderNumber: number });
 
   if (!order) {
-    throw HttpError(400, `There are no orderі with id ${number}`);
+    throw HttpError(404, `Замовлення не знайдено`);
   }
 
   // order calculation
@@ -156,13 +156,6 @@ const updateOrderByNumber = async (req, res) => {
 
     data.orderExecutionDate = "";
   } else if (data.status === "Виконане" || data.status === "Скасоване") {
-    // const currentDate = new Date();
-    // const day = String(currentDate.getDate()).padStart(2, "0");
-    // const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    // const year = currentDate.getFullYear();
-    // const hours = String(currentDate.getHours()).padStart(2, "0");
-    // const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-    // data.orderExecutionDate = String(currentDate);
     data.orderExecutionDate = new Date().toJSON();
   }
 
@@ -201,37 +194,9 @@ const getAll = async (req, res) => {
   res.json({ totalPages, orders: result });
 };
 
-// const getReportingByDates = async (req, res) => {
-//   const { startDate: start, endDate: end } = req.body;
-
-//   const startDate = new Date(start);
-//   const endDate = new Date(end);
-
-//   startDate.setHours(0, 0, 0);
-//   endDate.setHours(23, 59, 59);
-
-//   console.log(startDate);
-//   console.log(endDate);
-
-//   const result = await Order.find(
-//     {
-//       orderExecutionDate: {
-//         $gte: startDate.toJSON(),
-//         $lt: endDate.toJSON(),
-//       },
-//     },
-//     "-createdAt -updatedAt"
-//   ).sort({
-//     orderExecutionDate: -1,
-//   });
-
-//   res.json(result);
-// };
-
 module.exports = {
   addOrder: ctrlWrapper(addOrder),
   getAll: ctrlWrapper(getAll),
   getOrderByNumber: ctrlWrapper(getOrderByNumber),
   updateOrderByNumber: ctrlWrapper(updateOrderByNumber),
-  // getReportingByDates: ctrlWrapper(getReportingByDates),
 };

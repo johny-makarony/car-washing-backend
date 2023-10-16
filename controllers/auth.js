@@ -15,7 +15,7 @@ const register = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    throw HttpError(409, "Email in use");
+    throw HttpError(409, "Ел.пошта вже використовується");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -38,13 +38,13 @@ const login = async (req, res) => {
   const user = await User.findOne({ email: email.toLowerCase() });
 
   if (!user) {
-    throw HttpError(401, "Email or password is wrong");
+    throw HttpError(401, "Ел.пошта або пароль введені неправильно");
   }
 
   const passwordCompare = await bcrypt.compare(password, user.password);
 
   if (!passwordCompare) {
-    throw HttpError(401, "Email or password is wrong");
+    throw HttpError(401, "Ел.пошта або пароль введені неправильно");
   }
 
   const payload = { id: user._id };
@@ -74,7 +74,7 @@ const refresh = async (req, res) => {
     const { id } = jwt.verify(token, REFRESH_SECRET_KEY);
     const isExist = await User.findOne({ refreshToken: token });
     if (!isExist) {
-      throw HttpError(403, "Token invalid");
+      throw HttpError(403, "Авторизуйтесь повторно");
     }
 
     const payload = { id };
@@ -161,6 +161,4 @@ module.exports = {
   logout: ctrlWrapper(logout),
   getAdministrators: ctrlWrapper(getAdministrators),
   refresh: ctrlWrapper(refresh),
-  // updateProfile: ctrlWrapper(updateProfile),
-  // updateAvatar: ctrlWrapper(updateAvatar),
 };

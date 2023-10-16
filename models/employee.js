@@ -7,7 +7,7 @@ const employeeSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Set name for employee"],
+      required: true,
     },
     phone: String,
     criminal: Boolean,
@@ -18,40 +18,40 @@ const employeeSchema = new Schema(
 
 const addEmployeeSchema = joi.object({
   name: joi.string().pattern(stringRegexp).required().messages({
-    "string.base": "The name field must be a string.",
-    "string.pattern.base": "The name contains invalid characters.",
-    "any.required": "The name field is required.",
+    "string.base": "Поле ім'я повинно бути текстом без чисел чи знаків",
+    "string.pattern.base": "Поле ім'я повинно бути текстом без чисел чи знаків",
+    "any.required": "Поле ім'я обов'язкове",
   }),
   phone: joi.string().pattern(phoneRegexp).messages({
-    "string.base": "The phone field must be a string.",
-    "string.pattern.base": "Invalid phone number format.",
+    "string.base": "Поле телефон повинно бути номером",
+    "string.pattern.base":
+      "Некоректний формат. Введіть номер в форматі +380123456789",
   }),
   criminal: joi.boolean().messages({
-    "boolean.base": "The criminal field must be a boolean.",
+    "boolean.base": "Поле судимість повинно бути булевим",
   }),
   worksFromDate: joi.string().messages({
-    "string.base": "The birthday field must be a string.",
+    "string.base": "Поле дата повинно бути реченням",
   }),
 });
 
 const updateEmployeeSchema = joi
   .object({
-    name: joi.string().min(2).max(30).pattern(stringRegexp).messages({
-      "string.base": "The name field must be a string.",
-      "string.min": "The name must have at least 2 characters.",
-      "string.max": "The name must have at most 30 characters.",
-      "string.pattern.base": "The name contains invalid characters.",
+    name: joi.string().pattern(stringRegexp).messages({
+      "string.base": "Поле ім'я повинно бути текстом без чисел чи знаків",
+      "string.pattern.base":
+        "Поле ім'я повинно бути текстом без чисел чи знаків",
     }),
     phone: joi.string().pattern(phoneRegexp).messages({
-      "string.base": "The phone field must be a string.",
-      "string.pattern.base": "Invalid phone number format.",
+      "string.base": "Поле телефон повинно бути номером",
+      "string.pattern.base":
+        "Некоректний формат. Введіть номер в форматі +380123456789",
     }),
-    criminal: joi.string().pattern(stringRegexp).messages({
-      "string.base": "The criminal field must be a string.",
-      "string.pattern.base": "The criminal contains invalid characters.",
+    criminal: joi.string().messages({
+      "boolean.base": "Поле судимість повинно бути булевим",
     }),
     worksFromDate: joi.string().messages({
-      "string.base": "The birthday field must be a string.",
+      "string.base": "Поле дата повинно бути реченням",
     }),
   })
   .or("name", "phone", "criminal", "worksFromDate");

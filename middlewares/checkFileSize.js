@@ -3,7 +3,7 @@ const { HttpError } = require("../helpers");
 
 const checkFileSize = async (req, res, next) => {
   const { files } = req;
-  const maxFileSize = 5 * 1024 * 1024;
+  const maxFileSize = 10 * 1024 * 1024;
   let fileExceedsLimit = false;
 
   for (const key in files) {
@@ -21,7 +21,9 @@ const checkFileSize = async (req, res, next) => {
       const file = files[key][0];
       await fs.unlink(file.path);
     }
-    return next(HttpError(400, "Розмір принаймні одного файлу перевищує 5 МБ"));
+    return next(
+      HttpError(400, "Розмір принаймні одного файлу перевищує 10 МБ")
+    );
   }
 
   next();

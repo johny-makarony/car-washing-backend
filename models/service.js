@@ -17,21 +17,20 @@ const serviceSchema = new Schema(
 
 const addServiceSchema = joi.object({
   category: joi.string().valid("Авто", "Килим").messages({
-    "string.base": "The category field must be a string.",
-    "string.valid":
-      "The category field must have a value of 'Авто' or 'Килим'.",
+    "string.base": "Поле категорія повинно бути текстовим",
+    "string.valid": "Поле категорія повинно мати значення 'Авто' або 'Килим'.",
   }),
   name: joi.string().messages({
-    "string.base": "The name field must be a string.",
+    "string.base": "Поле ім'я повинно бути текстовим",
   }),
   pricePerMeter: joi.boolean().messages({
-    "boolean.base": "The pricePerMeter field must be a boolean.",
+    "boolean.base": "Поле ціна за м² повинно бути булевим",
   }),
   price: joi.number().messages({
-    "string.base": "The price field must be a number.",
+    "string.base": "Поле ціна повинно бути числовим",
   }),
   employeePercent: joi.number().messages({
-    "string.base": "The employeePercent field must be a number.",
+    "string.base": "Поле відсоток працівнику повинно бути числовим",
   }),
 });
 
