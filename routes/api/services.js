@@ -14,4 +14,13 @@ router.post(
 
 router.get("/", authenticate, service.getAllServices);
 
+router.post(
+  "/:id/update",
+  authenticate,
+  validateBody(schemas.updateServiceSchema),
+  service.updateService
+);
+
+router.delete("/:id/delete", authenticate, service.deleteService);
+
 module.exports = router;

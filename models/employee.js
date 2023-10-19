@@ -47,7 +47,7 @@ const updateEmployeeSchema = joi
       "string.pattern.base":
         "Некоректний формат. Введіть номер в форматі +380123456789",
     }),
-    criminal: joi.string().messages({
+    criminal: joi.boolean().messages({
       "boolean.base": "Поле судимість повинно бути булевим",
     }),
     worksFromDate: joi.string().messages({

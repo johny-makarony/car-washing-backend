@@ -1,9 +1,5 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const {
-//   uploadImageToCloudinary,
-//   deleteImageFromCloudinary,
-// } = require("../utils");
 
 const { User } = require("../models/user");
 const { HttpError, ctrlWrapper } = require("../helpers");
@@ -49,7 +45,7 @@ const login = async (req, res) => {
 
   const payload = { id: user._id };
   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-    expiresIn: "1D",
+    expiresIn: "7D",
   });
   const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
     expiresIn: "7D",
@@ -79,7 +75,7 @@ const refresh = async (req, res) => {
 
     const payload = { id };
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-      expiresIn: "1D",
+      expiresIn: "7D",
     });
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
       expiresIn: "7D",

@@ -164,7 +164,7 @@ const updateOrderByNumber = async (req, res) => {
     { ...data },
     { new: true }
   );
-  res.status(201).json(updatedOrder);
+  res.status(200).json(updatedOrder);
 };
 
 const getAll = async (req, res) => {
